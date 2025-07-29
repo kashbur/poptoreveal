@@ -192,16 +192,16 @@ document.querySelector('.popper').addEventListener('click', () => {
 
         container.appendChild(confetti);
 
-        // Launch angle: upward and right (cone)
-        const angleDeg = -60 + Math.random() * 20; // -60° to -40°
+        // Launch angle: wider upward burst
+        const angleDeg = -100 + Math.random() * 80; // -100° to -20°
         const angleRad = angleDeg * (Math.PI / 180);
-        const speed = Math.random() * 2 + 2.5;
+        const speed = Math.random() * 5 + 5; // 5-10 for stronger pop
 
         const x = Math.cos(angleRad) * speed;
         const y = Math.sin(angleRad) * speed;
 
-        let frame = 0;
-        const maxFrames = 120;
+        let frame = 5; // start slightly out for immediate spread
+        const maxFrames = 100;
 
         function animate() {
           const dx = x * frame;
