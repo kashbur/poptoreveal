@@ -111,7 +111,7 @@
 
         function animate() {
           const dx = x * frame;
-          const dy = y * frame + 0.05 * frame * frame; // slight gravity
+          const dy = y * frame; // remove gravity so confetti continues upward
           confetti.style.transform = `translate(${dx}px, ${dy}px)`;
           frame++;
           if (frame < maxFrames) {
