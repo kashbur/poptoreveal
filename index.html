@@ -41,23 +41,22 @@
 
     .confetti-launcher {
       position: absolute;
-      /* Adjust the X and Y origin to align visually with the popper tip */
-      left: 66.5%;  /* fine-tuned to match where the cone tip lands */
-      top: 59%;     /* fine-tuned to sit at the popper's visual opening */
+      left: 66.5%;
+      top: 59%;
       width: 0;
       height: 0;
-      transform: rotate(27.1deg); /* match popper angle */
+      transform: rotate(27.1deg);
       transform-origin: center;
     }
 
     .confetti-piece {
       position: absolute;
-      width: 6px;
+      width: 12px;
       height: 12px;
-      opacity: 0.9;
-      border-radius: 2px;
+      opacity: 0.95;
       transform-origin: center;
       will-change: transform, opacity;
+      clip-path: path("M0.5,0.15 C0.5,-0.1,0,0,0,0.3 C0,0.5,0.5,0.7,0.5,1 C0.5,0.7,1,0.5,1,0.3 C1,0,0.5,-0.1,0.5,0.15 Z");
     }
 
     #launch-button {
@@ -86,7 +85,7 @@
   </div>
 
   <script>
-    function launchConeConfetti(originEl, count = 60) {
+    function launchConeConfetti(originEl, count = 80) {
       const rect = originEl.getBoundingClientRect();
       const originX = rect.left + rect.width / 2;
       const originY = rect.top + rect.height / 2;
@@ -94,24 +93,27 @@
       for (let i = 0; i < count; i++) {
         const piece = document.createElement('div');
         piece.className = 'confetti-piece';
-        piece.style.backgroundColor = ['#FFC0CB', '#FFD700', '#87CEFA', '#FFFFFF'][Math.floor(Math.random() * 4)];
+
+        // Random shades of pink
+        const pinks = ['#FFC0CB', '#FF69B4', '#FFB6C1', '#FFA6C9', '#FFDDEE'];
+        piece.style.backgroundColor = pinks[Math.floor(Math.random() * pinks.length)];
+
         piece.style.left = originX + 'px';
         piece.style.top = originY + 'px';
 
         document.body.appendChild(piece);
 
-        // Cone angle: Up-right (~5° to 35°)
         const angle = 5 + Math.random() * 30;
         const radians = angle * (Math.PI / 180);
-        const distance = Math.random() * 300 + 150;
+        const distance = Math.random() * 300 + 200;
         const dx = Math.cos(radians) * distance;
-        const dy = Math.sin(radians) * distance * -0.5; // negative = upward
+        const dy = Math.sin(radians) * distance * -0.6;
 
-        const duration = Math.random() * 1.2 + 1.5;
+        const duration = Math.random() * 2 + 2.5; // Longer flight time
+
         piece.style.transition = `transform ${duration}s ease-out, opacity ${duration}s`;
-
         requestAnimationFrame(() => {
-          piece.style.transform = `translate(${dx}px, ${dy}px) rotate(${Math.random() * 360}deg)`;
+          piece.style.transform = `translate(${dx}px, ${dy}px) rotate(${Math.random() * 720}deg)`;
           piece.style.opacity = 0;
         });
 
