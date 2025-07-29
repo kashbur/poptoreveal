@@ -1,0 +1,26 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+.screen {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-image: url('background.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.popper {
+    position: absolute;
+    width: 60.02%;
+    height: 40.59%;
+    left: 10%;
+    top: 39.58%;
+    background-image: url('popper.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
