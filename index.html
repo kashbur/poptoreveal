@@ -60,19 +60,21 @@
       pointer-events: none;
     }
 
-    button {
+    #progress-container {
       position: absolute;
       bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      padding: 10px 20px;
-      font-size: 16px;
-      border: none;
-      border-radius: 8px;
-      background-color: #444;
-      color: #fff;
-      cursor: pointer;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      left: 5%;
+      width: 90%;
+      height: 12px;
+      background: rgba(255,255,255,0.6);
+      border-radius: 6px;
+    }
+
+    #progress-bar {
+      height: 100%;
+      width: 0%;
+      background: #4caf50;
+      border-radius: 6px;
     }
   </style>
 </head>
@@ -80,10 +82,39 @@
   <div id="container">
     <div class="popper"></div>
     <div class="confetti-launcher"></div>
-    <button onclick="revealConfetti()">Reveal Confetti</button>
+    <div id="progress-container"><div id="progress-bar"></div></div>
   </div>
 
   <script>
+    let progress = 0;
+    const progressBar = document.getElementById('progress-bar');
+
+    function updateProgress(amount) {
+      if (progress >= 100) return;
+      progress = Math.min(100, progress + amount);
+      progressBar.style.width = progress + '%';
+      if (progress === 100) {
+        revealConfetti();
+      }
+    }
+
+    function handleShake(event) {
+      const acc = event.accelerationIncludingGravity;
+      if (!acc) return;
+      const total = Math.abs(acc.x) + Math.abs(acc.y) + Math.abs(acc.z);
+      if (total > 25) {
+        updateProgress(5);
+      }
+    }
+
+    if (window.DeviceMotionEvent) {
+      window.addEventListener('devicemotion', handleShake);
+    }
+
+    document.querySelector('.popper').addEventListener('click', () => {
+      updateProgress(20);
+    });
+
     function revealConfetti() {
       const launcher = document.querySelector('.confetti-launcher');
       const container = document.getElementById('container');
