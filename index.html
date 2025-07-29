@@ -175,7 +175,8 @@ document.querySelector('.popper').addEventListener('click', () => {
       const container = document.getElementById('container');
       const colors = ['#f78fb3', '#ff6b81', '#ffb6c1', '#ff99cc', '#ffc0cb'];
 
-      for (let i = 0; i < 80; i++) {
+      // create lots of confetti for a bigger celebration
+      for (let i = 0; i < 150; i++) {
         const confetti = document.createElement('div');
         confetti.classList.add('confetti');
         confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
@@ -201,7 +202,8 @@ document.querySelector('.popper').addEventListener('click', () => {
         const y = Math.sin(angleRad) * speed;
 
         let frame = 5; // start slightly out for immediate spread
-        const maxFrames = 100;
+        // keep the confetti visible for longer
+        const maxFrames = 200;
 
         function animate() {
           const dx = x * frame;
