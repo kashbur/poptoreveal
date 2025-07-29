@@ -38,6 +38,18 @@
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center;
+      transform-origin: center bottom;
+    }
+
+    .popper.shake {
+      animation: popperShake 0.5s ease-in-out;
+    }
+
+    @keyframes popperShake {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(-15deg); }
+      50% { transform: rotate(15deg); }
+      75% { transform: rotate(-15deg); }
     }
 
     .confetti-launcher {
@@ -88,6 +100,13 @@
   <script>
     let progress = 0;
     const progressBar = document.getElementById('progress-bar');
+    const popper = document.querySelector('.popper');
+
+    function shakePopper() {
+      popper.classList.remove('shake');
+      void popper.offsetWidth; // restart animation
+      popper.classList.add('shake');
+    }
 
     function updateProgress(amount) {
       if (progress >= 100) return;
@@ -104,6 +123,7 @@
       const total = Math.abs(acc.x) + Math.abs(acc.y) + Math.abs(acc.z);
       if (total > 25) {
         updateProgress(5);
+        shakePopper();
       }
     }
 
@@ -111,8 +131,9 @@
       window.addEventListener('devicemotion', handleShake);
     }
 
-    document.querySelector('.popper').addEventListener('click', () => {
+    popper.addEventListener('click', () => {
       updateProgress(20);
+      shakePopper();
     });
 
     function revealConfetti() {
