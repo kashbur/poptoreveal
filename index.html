@@ -53,10 +53,10 @@
 
     .confetti {
       position: absolute;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      opacity: 0.8;
+      width: 10px;
+      height: 6px;
+      border-radius: 2px;
+      opacity: 0.9;
       pointer-events: none;
     }
 
@@ -96,6 +96,14 @@
         confetti.style.left = launcher.offsetLeft + 'px';
         confetti.style.top = launcher.offsetTop + 'px';
 
+        const width = 8 + Math.random() * 4;  // 8-12px
+        const height = 4 + Math.random() * 4; // 4-8px
+        confetti.style.width = width + 'px';
+        confetti.style.height = height + 'px';
+
+        const startAngle = Math.random() * 360;
+        const rotateSpeed = (Math.random() - 0.5) * 10; // deg per frame
+
         container.appendChild(confetti);
 
         // Launch angle: upward and right (cone)
@@ -112,7 +120,8 @@
         function animate() {
           const dx = x * frame;
           const dy = y * frame; // remove gravity so confetti continues upward
-          confetti.style.transform = `translate(${dx}px, ${dy}px)`;
+          const angle = startAngle + rotateSpeed * frame;
+          confetti.style.transform = `translate(${dx}px, ${dy}px) rotate(${angle}deg)`;
           frame++;
           if (frame < maxFrames) {
             requestAnimationFrame(animate);
