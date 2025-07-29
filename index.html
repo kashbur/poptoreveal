@@ -39,24 +39,15 @@
       background-position: center;
     }
 
-    .popper-opening {
-      position: absolute;
-      width: 40%;
-      height: 6.46%;
-      left: 49.87%;
-      top: 38%;
-      transform: rotate(27.1deg);
-      pointer-events: none;
-    }
-
     .confetti-launcher {
       position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
+      /* Adjust the X and Y origin to align visually with the popper tip */
+      left: 66.5%;  /* fine-tuned to match where the cone tip lands */
+      top: 59%;     /* fine-tuned to sit at the popper's visual opening */
       width: 0;
       height: 0;
-      overflow: visible;
+      transform: rotate(27.1deg); /* match popper angle */
+      transform-origin: center;
     }
 
     .confetti-piece {
@@ -90,39 +81,34 @@
 <body>
   <div id="container">
     <div class="popper"></div>
-    <div class="popper-opening">
-      <div class="confetti-launcher"></div>
-    </div>
+    <div class="confetti-launcher"></div>
     <button id="launch-button">Reveal Confetti</button>
   </div>
 
   <script>
     function launchConeConfetti(originEl, count = 60) {
-      const launcher = originEl.querySelector('.confetti-launcher');
+      const rect = originEl.getBoundingClientRect();
+      const originX = rect.left + rect.width / 2;
+      const originY = rect.top + rect.height / 2;
 
       for (let i = 0; i < count; i++) {
         const piece = document.createElement('div');
         piece.className = 'confetti-piece';
-
-        // Random pastel color
         piece.style.backgroundColor = ['#FFC0CB', '#FFD700', '#87CEFA', '#FFFFFF'][Math.floor(Math.random() * 4)];
+        piece.style.left = originX + 'px';
+        piece.style.top = originY + 'px';
 
-        // Start near bottom of popper
-        piece.style.left = '0px';
-        piece.style.top = '0px';
+        document.body.appendChild(piece);
 
-        // Cone angle: center around 15–20° to the right (slightly up)
-        const angle = 15 + Math.random() * 40; // 15° to 55°
+        // Cone angle: Up-right (~5° to 35°)
+        const angle = 5 + Math.random() * 30;
         const radians = angle * (Math.PI / 180);
-
         const distance = Math.random() * 300 + 150;
         const dx = Math.cos(radians) * distance;
-        const dy = Math.sin(radians) * distance * 0.6; // gentle downward arc
+        const dy = Math.sin(radians) * distance * -0.5; // negative = upward
 
-        const duration = Math.random() * 1.5 + 1.5;
-
+        const duration = Math.random() * 1.2 + 1.5;
         piece.style.transition = `transform ${duration}s ease-out, opacity ${duration}s`;
-        launcher.appendChild(piece);
 
         requestAnimationFrame(() => {
           piece.style.transform = `translate(${dx}px, ${dy}px) rotate(${Math.random() * 360}deg)`;
@@ -134,8 +120,8 @@
     }
 
     document.getElementById('launch-button').addEventListener('click', () => {
-      const opening = document.querySelector('.popper-opening');
-      launchConeConfetti(opening);
+      const launcher = document.querySelector('.confetti-launcher');
+      launchConeConfetti(launcher);
     });
   </script>
 </body>
