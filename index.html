@@ -1,14 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gender Reveal</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Gender Reveal</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: #000; /* optional: contrast */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .screen-wrapper {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .screen {
+      position: relative;
+      width: 1080px;
+      height: 1920px;
+      background-image: url('background.png');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      transform-origin: top left;
+    }
+
+    .popper {
+      position: absolute;
+      width: 60.02%;
+      height: 40.59%;
+      left: 10%;
+      top: 39.58%;
+      background-image: url('popper.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    @media (min-aspect-ratio: 9/16) {
+      .screen {
+        transform: scale(calc(100vh / 1920));
+      }
+    }
+
+    @media (max-aspect-ratio: 9/16) {
+      .screen {
+        transform: scale(calc(100vw / 1080));
+      }
+    }
+  </style>
 </head>
 <body>
+  <div class="screen-wrapper">
     <div class="screen">
-        <div class="popper"></div>
+      <div class="popper"></div>
     </div>
+  </div>
 </body>
 </html>
