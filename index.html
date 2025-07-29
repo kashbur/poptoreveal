@@ -51,8 +51,9 @@
 
     .confetti-launcher {
       position: absolute;
-      top: 0;
-      left: 0;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
       width: 0;
       height: 0;
       overflow: visible;
@@ -106,17 +107,17 @@
         // Random pastel color
         piece.style.backgroundColor = ['#FFC0CB', '#FFD700', '#87CEFA', '#FFFFFF'][Math.floor(Math.random() * 4)];
 
-        // Start at (0, 0)
+        // Start near bottom of popper
         piece.style.left = '0px';
         piece.style.top = '0px';
 
-        // Random cone angle around 30° to the right
-        const angle = (Math.random() * 60 - 30) + 30;
+        // Cone angle: center around 15–20° to the right (slightly up)
+        const angle = 15 + Math.random() * 40; // 15° to 55°
         const radians = angle * (Math.PI / 180);
 
         const distance = Math.random() * 300 + 150;
         const dx = Math.cos(radians) * distance;
-        const dy = Math.sin(radians) * distance;
+        const dy = Math.sin(radians) * distance * 0.6; // gentle downward arc
 
         const duration = Math.random() * 1.5 + 1.5;
 
