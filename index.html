@@ -41,18 +41,21 @@
 
     .confetti-launcher {
       position: absolute;
-      left: 66.5%;
-      top: 59%;
-      width: 0;
-      height: 0;
+      left: 66.5%;  /* tweak this to shift left/right */
+      top: 59%;     /* tweak this to shift up/down */
+      width: 10px;
+      height: 10px;
+      background: red; /* remove this when you're done aligning */
+      border-radius: 50%;
+      z-index: 999;
       transform: rotate(27.1deg);
       transform-origin: center;
     }
 
     .confetti-piece {
       position: absolute;
-      width: 12px;
-      height: 12px;
+      width: 24px;
+      height: 24px;
       opacity: 0.95;
       transform-origin: center;
       will-change: transform, opacity;
@@ -94,7 +97,7 @@
         const piece = document.createElement('div');
         piece.className = 'confetti-piece';
 
-        // Random shades of pink
+        // Random pink shades
         const pinks = ['#FFC0CB', '#FF69B4', '#FFB6C1', '#FFA6C9', '#FFDDEE'];
         piece.style.backgroundColor = pinks[Math.floor(Math.random() * pinks.length)];
 
@@ -103,13 +106,14 @@
 
         document.body.appendChild(piece);
 
-        const angle = 5 + Math.random() * 30;
+        // Direction: cone up and to the right
+        const angle = 5 + Math.random() * 30; // 5°–35°
         const radians = angle * (Math.PI / 180);
         const distance = Math.random() * 300 + 200;
         const dx = Math.cos(radians) * distance;
         const dy = Math.sin(radians) * distance * -0.6;
 
-        const duration = Math.random() * 2 + 2.5; // Longer flight time
+        const duration = Math.random() * 2 + 2.5;
 
         piece.style.transition = `transform ${duration}s ease-out, opacity ${duration}s`;
         requestAnimationFrame(() => {
