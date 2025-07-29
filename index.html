@@ -166,11 +166,9 @@ if (window.DeviceMotionEvent && typeof DeviceMotionEvent.requestPermission === '
 
 // Keep popper click handler
 document.querySelector('.popper').addEventListener('click', () => {
-  revealConfetti();
+  updateProgress(20);
+  shakePopper();
 });
-      updateProgress(20);
-      shakePopper();
-    });
 
     function revealConfetti() {
       const launcher = document.querySelector('.confetti-launcher');
