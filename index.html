@@ -24,6 +24,7 @@
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
+      overflow: hidden;
     }
 
     .popper {
@@ -37,11 +38,104 @@
       background-repeat: no-repeat;
       background-position: center;
     }
+
+    .popper-opening {
+      position: absolute;
+      width: 40%;
+      height: 6.46%;
+      left: 49.87%;
+      top: 38%;
+      transform: rotate(27.1deg);
+      pointer-events: none;
+    }
+
+    .confetti-launcher {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      overflow: visible;
+    }
+
+    .confetti-piece {
+      position: absolute;
+      width: 6px;
+      height: 12px;
+      opacity: 0.9;
+      border-radius: 2px;
+      transform-origin: center;
+      will-change: transform, opacity;
+    }
+
+    #launch-button {
+      position: absolute;
+      bottom: 5%;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #4f4e4c;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      z-index: 10;
+    }
   </style>
 </head>
 <body>
   <div id="container">
     <div class="popper"></div>
+    <div class="popper-opening">
+      <div class="confetti-launcher"></div>
+    </div>
+    <button id="launch-button">Reveal Confetti</button>
   </div>
+
+  <script>
+    function launchConeConfetti(originEl, count = 60) {
+      const launcher = originEl.querySelector('.confetti-launcher');
+
+      for (let i = 0; i < count; i++) {
+        const piece = document.createElement('div');
+        piece.className = 'confetti-piece';
+
+        // Random pastel color
+        piece.style.backgroundColor = ['#FFC0CB', '#FFD700', '#87CEFA', '#FFFFFF'][Math.floor(Math.random() * 4)];
+
+        // Start at (0, 0)
+        piece.style.left = '0px';
+        piece.style.top = '0px';
+
+        // Random cone angle around 30° to the right
+        const angle = (Math.random() * 60 - 30) + 30;
+        const radians = angle * (Math.PI / 180);
+
+        const distance = Math.random() * 300 + 150;
+        const dx = Math.cos(radians) * distance;
+        const dy = Math.sin(radians) * distance;
+
+        const duration = Math.random() * 1.5 + 1.5;
+
+        piece.style.transition = `transform ${duration}s ease-out, opacity ${duration}s`;
+        launcher.appendChild(piece);
+
+        requestAnimationFrame(() => {
+          piece.style.transform = `translate(${dx}px, ${dy}px) rotate(${Math.random() * 360}deg)`;
+          piece.style.opacity = 0;
+        });
+
+        setTimeout(() => piece.remove(), duration * 1000);
+      }
+    }
+
+    document.getElementById('launch-button').addEventListener('click', () => {
+      const opening = document.querySelector('.popper-opening');
+      launchConeConfetti(opening);
+    });
+  </script>
 </body>
 </html>
