@@ -132,10 +132,14 @@
     }
 
     function updateProgress(amount) {
-      if (progress >= 100) return;
-      progress = Math.min(100, progress + amount);
-      progressBar.style.width = progress + '%';
-      if (progress === 100) {
+      if (progress < 100) {
+        progress = Math.min(100, progress + amount);
+        progressBar.style.width = progress + '%';
+        if (progress === 100) {
+          revealConfetti();
+        }
+      } else {
+        // Once the bar is full, keep celebrating on further shakes/clicks
         revealConfetti();
       }
     }
