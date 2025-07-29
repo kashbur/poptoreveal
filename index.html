@@ -125,6 +125,12 @@
       popper.classList.add('shake');
     }
 
+    function vibrateFeedback() {
+      if (navigator.vibrate) {
+        navigator.vibrate(50);
+      }
+    }
+
     function updateProgress(amount) {
       if (progress >= 100) return;
       progress = Math.min(100, progress + amount);
@@ -141,6 +147,7 @@
       if (total > 25) {
         updateProgress(5);
         shakePopper();
+        vibrateFeedback();
       }
     }
 
@@ -168,6 +175,7 @@ if (window.DeviceMotionEvent && typeof DeviceMotionEvent.requestPermission === '
 document.querySelector('.popper').addEventListener('click', () => {
   updateProgress(20);
   shakePopper();
+  vibrateFeedback();
 });
 
     function revealConfetti() {
