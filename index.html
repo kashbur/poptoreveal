@@ -271,7 +271,7 @@ document.querySelector('.popper').addEventListener('click', () => {
         const balloon = document.createElement('img');
         balloon.src = images[Math.floor(Math.random() * images.length)];
         balloon.classList.add('balloon');
-        const size = (40 + Math.random() * 40) * 1.25; // 25% bigger
+        const size = (80 + Math.random() * 40) * 1.25; // 25% bigger
         balloon.style.width = size + 'px';
         balloon.style.left = Math.random() * 100 + '%';
         balloon.style.setProperty('--rotate', (Math.random() * 60 - 30) + 'deg');
