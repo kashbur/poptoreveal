@@ -160,6 +160,7 @@
     function preloadImages(list){return Promise.all(list.map(src=>{const img=new Image();img.src=src;const p=img.decode?img.decode():new Promise(r=>{img.onload=r;img.onerror=r;});return p.catch(()=>{});}));}
     preloadImages(preloadSources);
     let progress = 0;
+    let balloonsDropped = false;
     const popper = document.querySelector('.popper');
 
     function shakePopper() {
@@ -278,7 +279,10 @@ document.querySelector('.popper').addEventListener('click', () => {
         confetti.addEventListener('animationend', () => confetti.remove());
       }
 
-      setTimeout(dropBalloons, 1000);
+      if (!balloonsDropped) {
+        setTimeout(dropBalloons, 1000);
+        balloonsDropped = true;
+      }
     }
 
     function dropBalloons() {
