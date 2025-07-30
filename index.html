@@ -57,10 +57,10 @@
 
 .confetti-launcher {
   position: absolute;
-  left: 45%;
+  left: 25%;
   top: 57%;
-  width: 10px;
-  height: 10px;
+  width: 30%;
+  height: 10%;
   border-radius: 50%;
   z-index: 999;
   pointer-events: none;
@@ -188,16 +188,30 @@ document.querySelector('.popper').addEventListener('click', () => {
 });
 
     function revealConfetti() {
-      const launcher = document.querySelector('.confetti-launcher');
       const container = document.getElementById('container');
       const colors = ['#f78fb3', '#ff6b81', '#ffb6c1', '#ff99cc', '#ffc0cb'];
+
+      function randomPointInEllipse(cx, cy, rx, ry) {
+        const angle = Math.random() * Math.PI * 2;
+        const r = Math.sqrt(Math.random());
+        const x = cx + rx * r * Math.cos(angle);
+        const y = cy + ry * r * Math.sin(angle);
+        return { x, y };
+      }
+
+      const rect = container.getBoundingClientRect();
+      const centerX = rect.width * 0.4;
+      const centerY = rect.height * 0.57;
+      const radiusX = rect.width * 0.15;
+      const radiusY = rect.height * 0.05;
 
       for (let i = 0; i < 300; i++) {
         const confetti = document.createElement('div');
         confetti.classList.add('confetti');
         confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-        confetti.style.left = launcher.offsetLeft + 'px';
-        confetti.style.top = launcher.offsetTop + 'px';
+        const { x, y } = randomPointInEllipse(centerX, centerY, radiusX, radiusY);
+        confetti.style.left = x + 'px';
+        confetti.style.top = y + 'px';
 
         const width = 8 + Math.random() * 4;
         const height = 4 + Math.random() * 4;
