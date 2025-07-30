@@ -204,7 +204,9 @@ document.querySelector('.popper').addEventListener('click', () => {
         confetti.style.width = width + 'px';
         confetti.style.height = height + 'px';
 
-        const angleDeg = -90 + (Math.random() * 160 - 80);
+        // Limit the spread so confetti forms a jet-like stream rather than a wide cone
+        const angleSpread = 20; // degrees
+        const angleDeg = -90 + (Math.random() * angleSpread - angleSpread / 2);
         const distance = 250 + Math.random() * 300;
         const rotate = Math.random() * 720 - 360;
 
