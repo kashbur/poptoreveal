@@ -312,8 +312,10 @@ document.querySelector('.popper').addEventListener('click', () => {
       const container = document.getElementById('container');
       const images = ['pinkballoon1.png', 'pinkballoon2.png', 'pinkballoon3.png'];
       popper.classList.remove('shake');
-      popper.classList.add('fade-out');
-      popper.addEventListener('animationend', () => popper.remove(), { once: true });
+      setTimeout(() => {
+        popper.classList.add('fade-out');
+        popper.addEventListener('animationend', () => popper.remove(), { once: true });
+      }, 1000);
       for (let i = 0; i < 20; i++) {
         const balloon = document.createElement('img');
         balloon.src = images[Math.floor(Math.random() * images.length)];
