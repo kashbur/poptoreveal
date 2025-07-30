@@ -28,6 +28,7 @@
       overflow: hidden;
     }
 
+
 .popper {
   position: absolute;
   width: 106%;
@@ -47,10 +48,10 @@
     }
 
     @keyframes popperShake {
-      0%, 100% { transform: rotate(0deg); }
-      25% { transform: rotate(-2deg); }
-      50% { transform: rotate(2deg); }
-      75% { transform: rotate(-2deg); }
+      0%, 100% { transform: translateX(-50%) rotate(0deg); }
+      25% { transform: translateX(-50%) rotate(-2deg); }
+      50% { transform: translateX(-50%) rotate(2deg); }
+      75% { transform: translateX(-50%) rotate(-2deg); }
     }
 
 .confetti-launcher {
