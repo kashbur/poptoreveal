@@ -82,7 +82,7 @@
       top: -100px;
       pointer-events: none;
       transform: translateX(-50%) rotate(var(--rotate));
-      animation: balloonDrop 4s linear forwards;
+      animation: balloonDrop 8s linear forwards, balloonSway 3s ease-in-out infinite;
       z-index: 0;
     }
 
@@ -90,6 +90,11 @@
       to {
         top: 110%;
       }
+    }
+
+    @keyframes balloonSway {
+      0%, 100% { transform: translateX(-50%) rotate(var(--rotate)); }
+      50% { transform: translateX(calc(-50% + 20px)) rotate(calc(var(--rotate) + 10deg)); }
     }
 
     @keyframes confettiFly {
@@ -266,10 +271,12 @@ document.querySelector('.popper').addEventListener('click', () => {
         const balloon = document.createElement('img');
         balloon.src = images[Math.floor(Math.random() * images.length)];
         balloon.classList.add('balloon');
-        const size = 40 + Math.random() * 40;
+        const size = (40 + Math.random() * 40) * 1.3; // 30% bigger
         balloon.style.width = size + 'px';
         balloon.style.left = Math.random() * 100 + '%';
         balloon.style.setProperty('--rotate', (Math.random() * 60 - 30) + 'deg');
+        const delay = Math.random() * 2;
+        balloon.style.animationDelay = `${delay}s, 0s`;
         container.appendChild(balloon);
         balloon.addEventListener('animationend', () => balloon.remove());
       }
