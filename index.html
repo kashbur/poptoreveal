@@ -16,6 +16,8 @@
   <link rel="preload" href="mediumbrown.png" as="image">
   <link rel="preload" href="warmtan.png" as="image">
   <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="preload" href="shakeheader.png" as="image">
+  <link rel="preload" href="clickprompt.png" as="image">
   <style>
     html, body {
       margin: 0;
@@ -165,8 +167,32 @@
       display: none;
       z-index: 1000;
   }
+ #shake-header, #click-prompt {
+    position: absolute;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    pointer-events: none;
+    z-index: 3;
+  }
 
-  #message-overlay {
+  #shake-header {
+    top: 1.90%;
+    left: 2.24%;
+    width: 95.52%;
+    height: 23.91%;
+    background-image: url("shakeheader.png");
+  }
+
+  #click-prompt {
+    top: 38.2%;
+    left: 69.9%;
+    width: 28.4%;
+    height: 22.3%;
+    background-image: url("clickprompt.png");
+  }
+
+#message-overlay {
     position: absolute;
     top: 0;
     left: 0;
@@ -192,12 +218,14 @@
   <div id="container">
     <div class="popper"></div>
     <div class="confetti-launcher"></div>
+    <div id="shake-header"></div>
+    <div id="click-prompt"></div>
     <button id="enable-motion">Enable Motion</button>
     <div id="message-overlay"></div>
   </div>
 
   <script>
-    const preloadSources = ["background.png","lightbeige.png","pinkballoon1.png","pinkballoon2.png","pinkballoon3.png","blue1.png","blue2.png","blue3.png","deepbrown.png","mediumbrown.png","warmtan.png"];
+ const preloadSources = ["background.png","lightbeige.png","pinkballoon1.png","pinkballoon2.png","pinkballoon3.png","blue1.png","blue2.png","blue3.png","deepbrown.png","mediumbrown.png","warmtan.png","shakeheader.png","clickprompt.png"];
     function preloadImages(list){return Promise.all(list.map(src=>{const img=new Image();img.src=src;const p=img.decode?img.decode():new Promise(r=>{img.onload=r;img.onerror=r;});return p.catch(()=>{});}));}
     preloadImages(preloadSources);
     let progress = 0;
