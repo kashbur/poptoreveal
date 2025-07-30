@@ -72,6 +72,12 @@
       border-radius: 2px;
       opacity: 0.9;
       pointer-events: none;
+      will-change: transform;
+    }
+
+    @keyframes confettiFly {
+      0% { transform: translate3d(0,0,0) rotate(0deg); opacity: 1; }
+      100% { transform: translate3d(var(--dx), var(--dy), 0) rotate(var(--rotate)); opacity: 0; }
     }
 
 
@@ -170,7 +176,6 @@ document.querySelector('.popper').addEventListener('click', () => {
       const container = document.getElementById('container');
       const colors = ['#f78fb3', '#ff6b81', '#ffb6c1', '#ff99cc', '#ffc0cb'];
 
-      // create lots of confetti for a bigger celebration
       for (let i = 0; i < 150; i++) {
         const confetti = document.createElement('div');
         confetti.classList.add('confetti');
@@ -178,42 +183,25 @@ document.querySelector('.popper').addEventListener('click', () => {
         confetti.style.left = launcher.offsetLeft + 'px';
         confetti.style.top = launcher.offsetTop + 'px';
 
-        const width = 8 + Math.random() * 4;  // 20-24px
-        const height = 4 + Math.random() * 4; // 14-18px
+        const width = 8 + Math.random() * 4;
+        const height = 4 + Math.random() * 4;
         confetti.style.width = width + 'px';
         confetti.style.height = height + 'px';
 
-        const startAngle = Math.random() * 360;
-        const rotateSpeed = (Math.random() - 0.5) * 10; // deg per frame
+        const angleDeg = -100 + Math.random() * 80;
+        const distance = 80 + Math.random() * 120;
+        const rotate = Math.random() * 720 - 360;
+
+        confetti.style.setProperty('--dx', Math.cos(angleDeg * (Math.PI / 180)) * distance + 'px');
+        confetti.style.setProperty('--dy', Math.sin(angleDeg * (Math.PI / 180)) * distance + 'px');
+        confetti.style.setProperty('--rotate', rotate + 'deg');
+
+        const duration = 1.5 + Math.random();
+        confetti.style.animation = `confettiFly ${duration}s forwards ease-out`;
 
         container.appendChild(confetti);
 
-        // Launch angle: wider upward burst
-        const angleDeg = -100 + Math.random() * 80; // -100° to -20°
-        const angleRad = angleDeg * (Math.PI / 180);
-        const speed = Math.random() * 5 + 5; // 5-10 for stronger pop
-
-        const x = Math.cos(angleRad) * speed;
-        const y = Math.sin(angleRad) * speed;
-
-        let frame = 5; // start slightly out for immediate spread
-        // keep the confetti visible for longer
-        const maxFrames = 400; // extend confetti duration
-
-        function animate() {
-          const dx = x * frame;
-          const dy = y * frame; // remove gravity so confetti continues upward
-          const angle = startAngle + rotateSpeed * frame;
-          confetti.style.transform = `translate(${dx}px, ${dy}px) rotate(${angle}deg)`;
-          frame++;
-          if (frame < maxFrames) {
-            requestAnimationFrame(animate);
-          } else {
-            confetti.remove();
-          }
-        }
-
-        animate();
+        confetti.addEventListener('animationend', () => confetti.remove());
       }
     }
   </script>
