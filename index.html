@@ -73,22 +73,6 @@
       pointer-events: none;
     }
 
-    #progress-container {
-      position: absolute;
-      bottom: 20px;
-      left: 5%;
-      width: 90%;
-      height: 12px;
-      background: rgba(255,255,255,0.6);
-      border-radius: 6px;
-    }
-
-    #progress-bar {
-      height: 100%;
-      width: 0%;
-      background: #4caf50;
-      border-radius: 6px;
-    }
 
     #enable-motion {
       position: absolute;
@@ -111,13 +95,11 @@
   <div id="container">
     <div class="popper"></div>
     <div class="confetti-launcher"></div>
-    <div id="progress-container"><div id="progress-bar"></div></div>
     <button id="enable-motion">Enable Motion</button>
   </div>
 
   <script>
     let progress = 0;
-    const progressBar = document.getElementById('progress-bar');
     const popper = document.querySelector('.popper');
 
     function shakePopper() {
@@ -135,7 +117,6 @@
     function updateProgress(amount) {
       if (progress < 100) {
         progress = Math.min(100, progress + amount);
-        progressBar.style.width = progress + '%';
         if (progress === 100) {
           revealConfetti();
         }
