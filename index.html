@@ -42,6 +42,7 @@
   background-position: center;
   transform-origin: center bottom;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  z-index: 2;
 }
 
     .popper.shake {
@@ -74,6 +75,7 @@
       opacity: 0.9;
       pointer-events: none;
       will-change: transform;
+      z-index: 1;
     }
 
     @keyframes confettiFly {
@@ -189,7 +191,7 @@ document.querySelector('.popper').addEventListener('click', () => {
         confetti.style.width = width + 'px';
         confetti.style.height = height + 'px';
 
-        const angleDeg = -100 + Math.random() * 80;
+        const angleDeg = -90 + (Math.random() * 40 - 20);
         const distance = 80 + Math.random() * 120;
         const rotate = Math.random() * 720 - 360;
 
