@@ -161,6 +161,7 @@
     preloadImages(preloadSources);
     let progress = 0;
     let balloonsDropped = false;
+    let lastRevealTime = 0;
     const popper = document.querySelector('.popper');
 
     function shakePopper() {
@@ -175,15 +176,22 @@
       }
     }
 
+    const REVEAL_COOLDOWN = 1000; // limit reveal frequency
+
     function updateProgress(amount) {
+      const now = Date.now();
       if (progress < 100) {
         progress = Math.min(100, progress + amount);
         if (progress === 100) {
           revealConfetti();
+          lastRevealTime = now;
         }
       } else {
         // Once the bar is full, keep celebrating on further shakes/clicks
-        revealConfetti();
+        if (now - lastRevealTime >= REVEAL_COOLDOWN) {
+          revealConfetti();
+          lastRevealTime = now;
+        }
       }
     }
 
