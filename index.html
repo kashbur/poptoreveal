@@ -362,7 +362,7 @@ document.querySelector('.popper').addEventListener('click', () => {
         balloon.style.setProperty('--sway', (10 + Math.random() * 20) + 'px');
 
         const delay = Math.random() * 2;
-        const dropDuration = 2.5 + Math.random() * 2; // faster & varied
+        const dropDuration = (2.5 + Math.random() * 2) * 0.75; // 25% faster
         const swayDuration = 2 + Math.random() * 2;
         balloon.style.animation =
           `balloonDrop ${dropDuration}s linear ${delay}s forwards, ` +
@@ -373,7 +373,7 @@ document.querySelector('.popper').addEventListener('click', () => {
       }
 
       if (overlayMessage) {
-        setTimeout(showOverlayMessage, 1000);
+        setTimeout(showOverlayMessage, 1250); // 25% longer delay
       }
     }
   </script>
