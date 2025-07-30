@@ -43,24 +43,29 @@
   height: 75.7%;
   left: 50%;
   bottom: -2%;
-  transform: translateX(-50%) scale(1.2);
+  transform: translateX(-50%) scale(1.2) translateZ(0);
   background-image: url('lightbeige.png');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   transform-origin: center bottom;
+  will-change: transform;
   z-index: 2;
 }
 
     .popper.shake {
-      animation: popperShake 0.55s ease-in-out;
+      animation: popperShake 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97);
     }
 
     @keyframes popperShake {
-      0%, 100% { transform: translateX(-50%) scale(1.2) rotate(0deg); }
-      25% { transform: translateX(-50%) scale(1.2) rotate(-2deg); }
-      50% { transform: translateX(-50%) scale(1.2) rotate(2deg); }
-      75% { transform: translateX(-50%) scale(1.2) rotate(-2deg); }
+      0% { transform: translateX(-50%) scale(1.2) rotate(0deg); }
+      15% { transform: translateX(-50%) scale(1.2) rotate(-3deg); }
+      30% { transform: translateX(-50%) scale(1.2) rotate(3deg); }
+      45% { transform: translateX(-50%) scale(1.2) rotate(-2deg); }
+      60% { transform: translateX(-50%) scale(1.2) rotate(2deg); }
+      75% { transform: translateX(-50%) scale(1.2) rotate(-1deg); }
+      90% { transform: translateX(-50%) scale(1.2) rotate(1deg); }
+      100% { transform: translateX(-50%) scale(1.2) rotate(0deg); }
     }
 
 .confetti-launcher {
