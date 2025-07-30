@@ -179,7 +179,7 @@ document.querySelector('.popper').addEventListener('click', () => {
       const container = document.getElementById('container');
       const colors = ['#f78fb3', '#ff6b81', '#ffb6c1', '#ff99cc', '#ffc0cb'];
 
-      for (let i = 0; i < 150; i++) {
+      for (let i = 0; i < 200; i++) {
         const confetti = document.createElement('div');
         confetti.classList.add('confetti');
         confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
@@ -191,15 +191,15 @@ document.querySelector('.popper').addEventListener('click', () => {
         confetti.style.width = width + 'px';
         confetti.style.height = height + 'px';
 
-        const angleDeg = -90 + (Math.random() * 40 - 20);
-        const distance = 80 + Math.random() * 120;
+        const angleDeg = -90 + (Math.random() * 160 - 80);
+        const distance = 150 + Math.random() * 250;
         const rotate = Math.random() * 720 - 360;
 
         confetti.style.setProperty('--dx', Math.cos(angleDeg * (Math.PI / 180)) * distance + 'px');
         confetti.style.setProperty('--dy', Math.sin(angleDeg * (Math.PI / 180)) * distance + 'px');
         confetti.style.setProperty('--rotate', rotate + 'deg');
 
-        const duration = 1.5 + Math.random();
+        const duration = 3 + Math.random() * 2;
         confetti.style.animation = `confettiFly ${duration}s forwards ease-out`;
 
         container.appendChild(confetti);
