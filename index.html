@@ -18,7 +18,13 @@
   <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;700&display=swap" rel="stylesheet">
   <link rel="preload" href="shakeheader.png" as="image">
   <link rel="preload" href="clickprompt.png" as="image">
+  <link rel="preload" href="Kindly 2.otf" as="font" type="font/otf">
   <style>
+    @font-face {
+      font-family: "Kindly";
+      src: url("Kindly 2.otf") format("opentype");
+    }
+
     html, body {
       margin: 0;
       padding: 0;
@@ -212,6 +218,22 @@
     pointer-events: none;
     word-break: break-word;
   }
+#family-name {
+    position: absolute;
+    top: 11.2%;
+    left: 7%;
+    width: 86%;
+    height: 12.7%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-family: "Kindly", sans-serif;
+    color: #7C5260;
+    pointer-events: none;
+    z-index: 2000;
+  }
+
   </style>
 </head>
 <body>
@@ -220,6 +242,7 @@
     <div class="confetti-launcher"></div>
     <div id="shake-header"></div>
     <div id="click-prompt"></div>
+    <div id="family-name"></div>
     <button id="enable-motion">Enable Motion</button>
     <div id="message-overlay"></div>
   </div>
@@ -234,6 +257,17 @@
     const popper = document.querySelector('.popper');
     const messageOverlay = document.getElementById('message-overlay');
     const urlParams = new URLSearchParams(window.location.search);
+    const familyNameDiv = document.getElementById("family-name");
+    const familyName = urlParams.get("family");
+    if (familyName) {
+      const letters = familyName.replace(/\s+/g, "").length || 1;
+      const fontSize = Math.min(12, 50 / letters);
+      familyNameDiv.style.fontSize = fontSize + "vmin";
+      familyNameDiv.textContent = familyName;
+      familyNameDiv.style.display = "flex";
+    } else {
+      familyNameDiv.style.display = "none";
+    }
     const genderParam = (urlParams.get('gender') || '').toLowerCase();
     let overlayMessage = urlParams.get('message');
     if (!overlayMessage && genderParam) {
