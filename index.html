@@ -146,7 +146,7 @@
     }
 
 
-    #enable-motion {
+  #enable-motion {
       position: absolute;
       top: 10px;
       left: 50%;
@@ -160,7 +160,25 @@
       box-shadow: 0 2px 4px rgba(0,0,0,0.3);
       display: none;
       z-index: 1000;
-    }
+  }
+
+  #message-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-weight: bold;
+    color: #351b02;
+    padding: 10px;
+    z-index: 2000;
+    pointer-events: none;
+    word-break: break-word;
+  }
   </style>
 </head>
 <body>
@@ -168,6 +186,7 @@
     <div class="popper"></div>
     <div class="confetti-launcher"></div>
     <button id="enable-motion">Enable Motion</button>
+    <div id="message-overlay"></div>
   </div>
 
   <script>
@@ -178,6 +197,18 @@
     let balloonsDropped = false;
     let lastRevealTime = 0;
     const popper = document.querySelector('.popper');
+    const messageOverlay = document.getElementById('message-overlay');
+    const urlParams = new URLSearchParams(window.location.search);
+    const overlayMessage = urlParams.get('message');
+
+    function showOverlayMessage() {
+      if (!overlayMessage) return;
+      const words = overlayMessage.trim().split(/\s+/).length;
+      const fontSize = Math.max(6, 24 / Math.sqrt(words));
+      messageOverlay.style.fontSize = fontSize + 'vmin';
+      messageOverlay.textContent = overlayMessage;
+      messageOverlay.style.display = 'flex';
+    }
 
     function shakePopper() {
       popper.classList.remove('shake');
@@ -335,6 +366,10 @@ document.querySelector('.popper').addEventListener('click', () => {
 
         container.appendChild(balloon);
         balloon.addEventListener('animationend', () => balloon.remove());
+      }
+
+      if (overlayMessage) {
+        setTimeout(showOverlayMessage, 1000);
       }
     }
   </script>
