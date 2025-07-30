@@ -115,6 +115,7 @@
 
     @keyframes confettiFly {
       0% { transform: translate3d(0,0,0) rotate(0deg); opacity: 1; }
+      85% { opacity: 1; }
       100% { transform: translate3d(var(--dx), var(--dy), 0) rotate(var(--rotate)); opacity: 0; }
     }
 
@@ -125,6 +126,10 @@
       }
       15% {
         transform: translate3d(var(--mid-dx), var(--mid-dy), 0) rotate(calc(var(--rotate) * 0.5));
+        opacity: 1;
+      }
+      85% {
+        opacity: 1;
       }
       100% {
         transform: translate3d(var(--dx), var(--dy), 0) rotate(var(--rotate));
