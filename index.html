@@ -9,6 +9,9 @@
   <link rel="preload" href="pinkballoon1.png" as="image">
   <link rel="preload" href="pinkballoon2.png" as="image">
   <link rel="preload" href="pinkballoon3.png" as="image">
+  <link rel="preload" href="blue1.png" as="image">
+  <link rel="preload" href="blue2.png" as="image">
+  <link rel="preload" href="blue3.png" as="image">
   <link rel="preload" href="deepbrown.png" as="image">
   <link rel="preload" href="mediumbrown.png" as="image">
   <link rel="preload" href="warmtan.png" as="image">
@@ -194,7 +197,7 @@
   </div>
 
   <script>
-    const preloadSources = ["background.png","lightbeige.png","pinkballoon1.png","pinkballoon2.png","pinkballoon3.png","deepbrown.png","mediumbrown.png","warmtan.png"];
+    const preloadSources = ["background.png","lightbeige.png","pinkballoon1.png","pinkballoon2.png","pinkballoon3.png","blue1.png","blue2.png","blue3.png","deepbrown.png","mediumbrown.png","warmtan.png"];
     function preloadImages(list){return Promise.all(list.map(src=>{const img=new Image();img.src=src;const p=img.decode?img.decode():new Promise(r=>{img.onload=r;img.onerror=r;});return p.catch(()=>{});}));}
     preloadImages(preloadSources);
     let progress = 0;
@@ -203,7 +206,11 @@
     const popper = document.querySelector('.popper');
     const messageOverlay = document.getElementById('message-overlay');
     const urlParams = new URLSearchParams(window.location.search);
-    const overlayMessage = urlParams.get('message');
+    const genderParam = (urlParams.get('gender') || '').toLowerCase();
+    let overlayMessage = urlParams.get('message');
+    if (!overlayMessage && genderParam) {
+      overlayMessage = genderParam === 'boy' ? "It's a Boy" : "It's a Girl";
+    }
 
     function showOverlayMessage() {
       if (!overlayMessage) return;
@@ -211,6 +218,9 @@
       const fontSize = Math.max(6, 24 / Math.sqrt(words));
       messageOverlay.style.fontSize = fontSize + 'vmin';
       messageOverlay.textContent = overlayMessage;
+      if (genderParam === 'boy') {
+        messageOverlay.style.webkitTextStroke = '0.5vmin #00008B';
+      }
       messageOverlay.style.display = 'flex';
     }
 
@@ -285,7 +295,9 @@ document.querySelector('.popper').addEventListener('click', () => {
 
     function revealConfetti() {
       const container = document.getElementById('container');
-      const colors = ['#f78fb3', '#ff6b81', '#ffb6c1', '#ff99cc', '#ffc0cb'];
+      const colors = genderParam === 'boy'
+        ? ['#3f8efc', '#00a2ff', '#3fa9f5', '#7bc9ff', '#89cff0']
+        : ['#f78fb3', '#ff6b81', '#ffb6c1', '#ff99cc', '#ffc0cb'];
 
       function randomPointInEllipse(cx, cy, rx, ry) {
         const angle = Math.random() * Math.PI * 2;
@@ -345,7 +357,9 @@ document.querySelector('.popper').addEventListener('click', () => {
 
     function dropBalloons() {
       const container = document.getElementById('container');
-      const images = ['pinkballoon1.png', 'pinkballoon2.png', 'pinkballoon3.png'];
+      const images = genderParam === 'boy'
+        ? ['blue1.png', 'blue2.png', 'blue3.png']
+        : ['pinkballoon1.png', 'pinkballoon2.png', 'pinkballoon3.png'];
       popper.classList.remove('shake');
       setTimeout(() => {
         popper.classList.add('fade-out');
