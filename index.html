@@ -79,7 +79,8 @@
 
     .balloon {
       position: absolute;
-      top: -100px;
+      /* start well above the container so balloons drop in smoothly */
+      top: -60%;
       pointer-events: none;
       transform: translateX(-50%) rotate(var(--rotate));
       animation: balloonDrop 8s linear forwards, balloonSway 3s ease-in-out infinite;
