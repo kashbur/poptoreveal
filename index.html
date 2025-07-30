@@ -77,6 +77,21 @@
       z-index: 1;
     }
 
+    .balloon {
+      position: absolute;
+      top: -100px;
+      pointer-events: none;
+      transform: translateX(-50%) rotate(var(--rotate));
+      animation: balloonDrop 4s linear forwards;
+      z-index: 0;
+    }
+
+    @keyframes balloonDrop {
+      to {
+        top: 110%;
+      }
+    }
+
     @keyframes confettiFly {
       0% { transform: translate3d(0,0,0) rotate(0deg); opacity: 1; }
       100% { transform: translate3d(var(--dx), var(--dy), 0) rotate(var(--rotate)); opacity: 0; }
@@ -239,6 +254,24 @@ document.querySelector('.popper').addEventListener('click', () => {
         container.appendChild(confetti);
 
         confetti.addEventListener('animationend', () => confetti.remove());
+      }
+
+      setTimeout(dropBalloons, 1000);
+    }
+
+    function dropBalloons() {
+      const container = document.getElementById('container');
+      const images = ['pinkballoon1.png', 'pinkballoon2.png', 'pinkballoon3.png'];
+      for (let i = 0; i < 20; i++) {
+        const balloon = document.createElement('img');
+        balloon.src = images[Math.floor(Math.random() * images.length)];
+        balloon.classList.add('balloon');
+        const size = 40 + Math.random() * 40;
+        balloon.style.width = size + 'px';
+        balloon.style.left = Math.random() * 100 + '%';
+        balloon.style.setProperty('--rotate', (Math.random() * 60 - 30) + 'deg');
+        container.appendChild(balloon);
+        balloon.addEventListener('animationend', () => balloon.remove());
       }
     }
   </script>
