@@ -251,7 +251,7 @@ document.querySelector('.popper').addEventListener('click', () => {
       const radiusX = rect.width * 0.15;
       const radiusY = rect.height * 0.05;
 
-      for (let i = 0; i < 300; i++) {
+      for (let i = 0; i < 400; i++) {
         const confetti = document.createElement('div');
         confetti.classList.add('confetti');
         confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
@@ -259,8 +259,8 @@ document.querySelector('.popper').addEventListener('click', () => {
         confetti.style.left = x + 'px';
         confetti.style.top = y + 'px';
 
-        const width = 16 + Math.random() * 8;
-        const height = 8 + Math.random() * 8;
+        const width = (16 + Math.random() * 8) * 1.2; // 20% bigger
+        const height = (8 + Math.random() * 8) * 1.2; // 20% bigger
         confetti.style.width = width + 'px';
         confetti.style.height = height + 'px';
 
@@ -279,7 +279,7 @@ document.querySelector('.popper').addEventListener('click', () => {
         confetti.style.setProperty('--mid-dy', dy * 0.3 + 'px');
         confetti.style.setProperty('--rotate', rotate + 'deg');
 
-        const duration = 2 + Math.random() * 1.5;
+        const duration = 1.6 + Math.random() * 1.2; // slightly faster
         confetti.style.animation = `confettiRocket ${duration}s forwards ease-out`;
 
         container.appendChild(confetti);
