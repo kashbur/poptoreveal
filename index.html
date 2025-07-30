@@ -83,6 +83,20 @@
       100% { transform: translate3d(var(--dx), var(--dy), 0) rotate(var(--rotate)); opacity: 0; }
     }
 
+    @keyframes confettiRocket {
+      0% {
+        transform: translate3d(0,0,0) rotate(0deg);
+        opacity: 1;
+      }
+      30% {
+        transform: translate3d(var(--mid-dx), var(--mid-dy), 0) rotate(calc(var(--rotate) * 0.3));
+      }
+      100% {
+        transform: translate3d(var(--dx), var(--dy), 0) rotate(var(--rotate));
+        opacity: 0;
+      }
+    }
+
 
     #enable-motion {
       position: absolute;
@@ -195,12 +209,17 @@ document.querySelector('.popper').addEventListener('click', () => {
         const distance = 150 + Math.random() * 250;
         const rotate = Math.random() * 720 - 360;
 
-        confetti.style.setProperty('--dx', Math.cos(angleDeg * (Math.PI / 180)) * distance + 'px');
-        confetti.style.setProperty('--dy', Math.sin(angleDeg * (Math.PI / 180)) * distance + 'px');
+        const dx = Math.cos(angleDeg * (Math.PI / 180)) * distance;
+        const dy = Math.sin(angleDeg * (Math.PI / 180)) * distance;
+
+        confetti.style.setProperty('--dx', dx + 'px');
+        confetti.style.setProperty('--dy', dy + 'px');
+        confetti.style.setProperty('--mid-dx', dx * 0.1 + 'px');
+        confetti.style.setProperty('--mid-dy', dy * 0.3 + 'px');
         confetti.style.setProperty('--rotate', rotate + 'deg');
 
         const duration = 3 + Math.random() * 2;
-        confetti.style.animation = `confettiFly ${duration}s forwards ease-out`;
+        confetti.style.animation = `confettiRocket ${duration}s forwards ease-out`;
 
         container.appendChild(confetti);
 
