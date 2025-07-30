@@ -53,6 +53,14 @@
   z-index: 2;
 }
 
+    .popper.fade-out {
+      animation: popperFade 1s forwards;
+    }
+
+    @keyframes popperFade {
+      to { opacity: 0; }
+    }
+
     .popper.shake {
       animation: popperShake 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97);
     }
@@ -303,6 +311,8 @@ document.querySelector('.popper').addEventListener('click', () => {
     function dropBalloons() {
       const container = document.getElementById('container');
       const images = ['pinkballoon1.png', 'pinkballoon2.png', 'pinkballoon3.png'];
+      popper.classList.add('fade-out');
+      popper.addEventListener('animationend', () => popper.remove(), { once: true });
       for (let i = 0; i < 20; i++) {
         const balloon = document.createElement('img');
         balloon.src = images[Math.floor(Math.random() * images.length)];
