@@ -87,8 +87,8 @@
         transform: translate3d(0,0,0) rotate(0deg);
         opacity: 1;
       }
-      30% {
-        transform: translate3d(var(--mid-dx), var(--mid-dy), 0) rotate(calc(var(--rotate) * 0.3));
+      15% {
+        transform: translate3d(var(--mid-dx), var(--mid-dy), 0) rotate(calc(var(--rotate) * 0.5));
       }
       100% {
         transform: translate3d(var(--dx), var(--dy), 0) rotate(var(--rotate));
@@ -192,7 +192,7 @@ document.querySelector('.popper').addEventListener('click', () => {
       const container = document.getElementById('container');
       const colors = ['#f78fb3', '#ff6b81', '#ffb6c1', '#ff99cc', '#ffc0cb'];
 
-      for (let i = 0; i < 200; i++) {
+      for (let i = 0; i < 300; i++) {
         const confetti = document.createElement('div');
         confetti.classList.add('confetti');
         confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
@@ -205,7 +205,7 @@ document.querySelector('.popper').addEventListener('click', () => {
         confetti.style.height = height + 'px';
 
         const angleDeg = -90 + (Math.random() * 160 - 80);
-        const distance = 150 + Math.random() * 250;
+        const distance = 250 + Math.random() * 300;
         const rotate = Math.random() * 720 - 360;
 
         const dx = Math.cos(angleDeg * (Math.PI / 180)) * distance;
@@ -217,7 +217,7 @@ document.querySelector('.popper').addEventListener('click', () => {
         confetti.style.setProperty('--mid-dy', dy * 0.3 + 'px');
         confetti.style.setProperty('--rotate', rotate + 'deg');
 
-        const duration = 3 + Math.random() * 2;
+        const duration = 2 + Math.random() * 1.5;
         confetti.style.animation = `confettiRocket ${duration}s forwards ease-out`;
 
         container.appendChild(confetti);
