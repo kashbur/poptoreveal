@@ -286,13 +286,22 @@
     const familyNameDiv = document.getElementById("family-name");
     const preFamilyText = document.getElementById("pre-family-text");
     const postFamilyText = document.getElementById("post-family-text");
+
+    function fitText(element, maxSize) {
+      let size = maxSize;
+      const minSize = 1;
+      element.style.fontSize = size + 'vmin';
+      while (size > minSize && (element.scrollWidth > element.clientWidth ||
+             element.scrollHeight > element.clientHeight)) {
+        size -= 0.5;
+        element.style.fontSize = size + 'vmin';
+      }
+    }
     const familyName = urlParams.get("family");
     if (familyName) {
-      const letters = familyName.replace(/\s+/g, "").length || 1;
-      const fontSize = Math.min(12, 50 / letters);
-      familyNameDiv.style.fontSize = fontSize + "vmin";
       familyNameDiv.textContent = familyName;
       familyNameDiv.style.display = "flex";
+      fitText(familyNameDiv, 12);
     } else {
       familyNameDiv.style.display = "none";
     }
