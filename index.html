@@ -251,11 +251,11 @@
   }
 
 #pre-family-text {
-    top: 0%;
+    top: 4%;
   }
 
 #post-family-text {
-    top: 24%;
+    top: 20%;
   }
 
   </style>
@@ -297,10 +297,11 @@
       familyNameDiv.style.display = "none";
     }
     const preLetters = preFamilyText.textContent.replace(/\s+/g, "").length || 1;
-    preFamilyText.style.fontSize = Math.min(12, 50 / preLetters) + "vmin";
-    preFamilyText.style.display = "flex";
     const postLetters = postFamilyText.textContent.replace(/\s+/g, "").length || 1;
-    postFamilyText.style.fontSize = Math.min(12, 50 / postLetters) + "vmin";
+    const sharedFont = Math.min(12, 50 / Math.max(preLetters, postLetters)) + "vmin";
+    preFamilyText.style.fontSize = sharedFont;
+    postFamilyText.style.fontSize = sharedFont;
+    preFamilyText.style.display = "flex";
     postFamilyText.style.display = "flex";
     const genderParam = (urlParams.get('gender') || '').toLowerCase();
     let overlayMessage = urlParams.get('message');
