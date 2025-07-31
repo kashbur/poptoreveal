@@ -301,13 +301,13 @@
     if (familyName) {
       familyNameDiv.textContent = familyName;
       familyNameDiv.style.display = "flex";
-      fitText(familyNameDiv, 12);
+      fitText(familyNameDiv, 16);
     } else {
       familyNameDiv.style.display = "none";
     }
     const preLetters = preFamilyText.textContent.replace(/\s+/g, "").length || 1;
     const postLetters = postFamilyText.textContent.replace(/\s+/g, "").length || 1;
-    const sharedFont = Math.min(12, 50 / Math.max(preLetters, postLetters)) + "vmin";
+    const sharedFont = Math.min(16, 80 / Math.max(preLetters, postLetters)) + "vmin";
     preFamilyText.style.fontSize = sharedFont;
     postFamilyText.style.fontSize = sharedFont;
     preFamilyText.style.display = "flex";
